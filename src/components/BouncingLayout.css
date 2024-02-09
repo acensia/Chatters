@@ -8,18 +8,27 @@
   justify-content: center; /* This centers items vertically */
   min-height: 100vh; /* Ensure the container takes up at least the full viewport height */
   padding: 20px;
+  padding-top: 0;
   width: 100vw; /* Ensure the container takes up the full width */
   box-sizing: border-box; /* Ensure padding does not affect the overall width */
 }
 
 .title,
 .circle {
-  animation: pop 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
   transform: scale(0); /* Start scaled down */
-  transition: transform 0.3s ease;
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
 }
 
 .title {
+  animation: pop 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
   text-align: center;
   margin-bottom: 10vh; /* Adjust as needed to move closer/farther from the circles */
   font-family: "Tangerine", cursive;
@@ -44,10 +53,11 @@
   background-size: cover; /* Ensures the image covers the entire circle */
   background-position: center 10%; /* Centers the image within the circle */
   background-repeat: no-repeat; /* Prevents the image from repeating */
-  /* transition: transform 0.1s ease; */
+  transition: transform 0.1s ease;
+  animation: pop 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
 }
 .circle:hover {
-  transform: scale(1000); /* Adjust scale factor as desired */
+  transform: scale(1.1); /* Adjust scale factor as desired */
 }
 
 .last {
@@ -55,15 +65,6 @@
   height: 150px;
   border-radius: 50%;
   background-color: lightblue;
-}
-
-@keyframes pop {
-  from {
-    transform: scale(0);
-  }
-  to {
-    transform: scale(1);
-  }
 }
 
 @media (max-width: 600px) {
