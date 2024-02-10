@@ -7,10 +7,11 @@ import ron from "../assets/ron.jpg";
 import wand from "../assets/qwand.jpg";
 import style from "styled-components";
 
-const Profile = ({ img }) => {
+const Profile = ({ img, name }) => {
   // const [isHovered, setHovered] = useState(false);
 
   const Styled = style.div`
+    position:relative;
     transition: transform 0.4s ease;
     background-image: url(${img});
     width: 100%;
@@ -19,8 +20,59 @@ const Profile = ({ img }) => {
     background-size: cover;
     background-position: center 10%;
     background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+   
+
+    // Whitening effect
+    ::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0); // No effect initially
+      transition: background 0.3s ease; // Smooth transition for the whitening effect
+      z-index: 0;
+    }
+
+    // Text styles
+  .text {
+    display:flex;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.3s ease; // Smooth transition for text appearance
+    color: #000; // Adjust text color as needed
+    z-index: 1;
+    align-items: center;
+    justify-content:center;
+    text-align: center;
+    width:100%;
+    font-size:7vh;
+    font-family: "Tangerine", cursive;
+    z-index:1;
+  }
+
     &:hover{
       transform: scale(1.2);
+
+      ::after{
+        content: '';
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background : rgba(255, 255, 255, 0.5);
+        z-index: 0;
+      }
+
+      .text{
+        opacity:1;
+        // z-index:1;
+      }
     }
   `;
 
@@ -35,7 +87,13 @@ const Profile = ({ img }) => {
   //   backgroundPosition: "center 10%" /* Centers the image within the circle */,
   //   backgroundRepeat: "no-repeat" /* Prevents the image from repeating */,
   // };
-  return <Styled />;
+  return (
+    <Styled>
+      <div className="text" style={{ width: "100%", height: "100%" }}>
+        {name}
+      </div>
+    </Styled>
+  );
 };
 
 const BouncingLayout = () => {
@@ -51,7 +109,7 @@ const BouncingLayout = () => {
             animationDelay: "1.0s",
           }}
         >
-          <Profile img={harry} />
+          <Profile img={harry} name="Harry Potter " />
         </div>{" "}
         {/* <Profile delay="1.0" img={harry} /> */}
         <div
@@ -60,10 +118,10 @@ const BouncingLayout = () => {
             animationDelay: "1.2s",
           }}
         >
-          <Profile img={hermione} />
+          <Profile img={hermione} name="Hermione Granger" />
         </div>
         <div className="circle pop" style={{ animationDelay: "1.4s" }}>
-          <Profile img={ron} />
+          <Profile img={ron} name="Ron Weasley" />
         </div>
       </div>
       <div
