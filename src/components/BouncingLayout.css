@@ -15,15 +15,26 @@
 
 .title,
 .circle {
-  transform: scale(1); /* Start scaled down */
+  transform: scale(0); /* Start scaled down */
 }
 
 @keyframes pop {
-  from {
+  0% {
+    transform: scale(0);
     opacity: 0;
   }
-  to {
+  100% {
+    transform: scale(1);
     opacity: 1;
+  }
+}
+
+@keyframes enlarge {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.2);
   }
 }
 
@@ -53,11 +64,10 @@
   background-size: cover; /* Ensures the image covers the entire circle */
   background-position: center 10%; /* Centers the image within the circle */
   background-repeat: no-repeat; /* Prevents the image from repeating */
-  transition: transform 0.1s ease;
   animation: pop 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
 }
 .circle:hover {
-  transform: scale(1.1); /* Adjust scale factor as desired */
+  transform: scale(1.2);
 }
 
 .last {
