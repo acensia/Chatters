@@ -59,19 +59,9 @@ const Profile = ({ img, name }) => {
     &:hover{
       transform: scale(1.2);
 
-      ::after{
-        content: '';
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background : rgba(255, 255, 255, 0.5);
-        z-index: 0;
-      }
-
       .text{
         opacity:1;
-        // z-index:1;
+        background:rgba(255, 255, 255, 0.5);
       }
     }
   `;
