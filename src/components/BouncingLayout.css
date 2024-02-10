@@ -30,15 +30,6 @@
   }
 }
 
-@keyframes enlarge {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.2);
-  }
-}
-
 .title {
   animation: pop 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
   text-align: center;
@@ -55,38 +46,36 @@
 }
 
 .circle {
-  width: 200px;
-  height: 200px;
+  width: 22vw;
+  height: 22vw;
   border-radius: 50%;
   background-color: #007bff; /* Example color */
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-bottom: 20px;
+  margin-left: 2vw;
+  margin-right: 2vw;
+  margin-bottom: 2vw;
   background-size: cover; /* Ensures the image covers the entire circle */
   background-position: center 10%; /* Centers the image within the circle */
   background-repeat: no-repeat; /* Prevents the image from repeating */
   animation: pop 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
 }
-.circle:hover {
-  transform: scale(1.2);
-}
 
 .last {
-  width: 150px;
-  height: 150px;
+  width: 16vw;
+  height: 16vw;
   border-radius: 50%;
   background-color: lightblue;
 }
-
+/* 
 @media (max-width: 600px) {
   .circle {
-    width: 40px; /* Smaller circles on small screens */
+    width: 40px; 
     height: 40px;
   }
   .title,
   .circles,
   .circle {
-    animation: none; /* Optionally, disable animation on smaller devices */
+    animation: none; 
   }
-  /* Additional responsive adjustments as needed */
-}
+} */
+/* Smaller circles on small screens */
+/* Optionally, disable animation on smaller devices */

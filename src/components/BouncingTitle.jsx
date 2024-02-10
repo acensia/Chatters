@@ -51,7 +51,7 @@ const Profile = ({ img, name }) => {
     justify-content:center;
     text-align: center;
     width:100%;
-    font-size:7vh;
+    font-size:5vw;
     font-family: "Tangerine", cursive;
     z-index:1;
   }
@@ -121,7 +121,7 @@ const BouncingLayout = () => {
           marginTop: "20px",
         }}
       >
-        <Profile img={wand} />
+        <Profile img={wand} name="Who else?" />
       </div>
     </div>
   );
