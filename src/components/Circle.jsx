@@ -57,6 +57,18 @@ const Circleimg = ({ img, name }) => {
 
 const Circle = ({ img, name, delay, current, clickedID, onClick }) => {
   const last = name === "Who else?";
+  const moveType = () => {
+    switch (name) {
+      case "Harry Potter":
+        return "moveRight";
+      case "Ron Weasley":
+        return "moveLeft";
+      case "Hermione Granger":
+        return "moveUp";
+      default:
+        return "moveUpMore";
+    }
+  };
   const Circlepop = style.div`
     ${current ? "transform:scale(1);" : "transform:scale(0);"}
     width: ${last ? "16vw" : "22vw"};
@@ -72,7 +84,7 @@ const Circle = ({ img, name, delay, current, clickedID, onClick }) => {
     animation: ${
       current
         ? clickedID === name
-          ? "move 2s forwards"
+          ? `${moveType()} 2s ease forwards`
           : "fade 0.5s forwards"
         : "pop 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards"
     };
