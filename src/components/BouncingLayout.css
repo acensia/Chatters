@@ -30,6 +30,30 @@
   }
 }
 
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes move {
+  0% {
+    transform: translateX(0%);
+  }
+  50% {
+    transform: translateX(100%);
+    left: 50%;
+  }
+  100% {
+    transform: translateX(100%) translateY(-100%);
+    left: 50%;
+    top: 10%;
+  }
+}
+
 .title {
   animation: pop 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
   text-align: center;

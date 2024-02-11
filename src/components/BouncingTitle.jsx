@@ -6,6 +6,21 @@ import hermione from "../assets/hermione.jpg";
 import ron from "../assets/ron.jpg";
 import wand from "../assets/qwand.jpg";
 import style from "styled-components";
+import Circle from "./Circle";
+
+const Title = ({ current }) => {
+  const titleStyle = {
+    animation: current
+      ? "fade 0.5s forwards"
+      : "pop 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards",
+    textAlign: "center",
+    marginBottom: "10vh",
+    fontFamily: '"Tangerine", cursive',
+    fontSize: "10vw",
+    animationDelay: current ? "0s" : "0.1s",
+  };
+  return <h1 style={titleStyle}>Polyjuice</h1>;
+};
 
 const Profile = ({ img, name }) => {
   // const [isHovered, setHovered] = useState(false);
@@ -24,20 +39,6 @@ const Profile = ({ img, name }) => {
     justify-content: center;
     align-items: center;
     overflow: hidden;
-   
-
-    // Whitening effect
-    ::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(255, 255, 255, 0); // No effect initially
-      transition: background 0.3s ease; // Smooth transition for the whitening effect
-      z-index: 0;
-    }
 
     // Text styles
   .text {
@@ -65,18 +66,6 @@ const Profile = ({ img, name }) => {
       }
     }
   `;
-
-  // const style = {
-  //   transition: `transform 0.5 ease`,
-  //   // transform: isHovered ? "scale(1.2)" : "scale(1)",
-  //   backgroundImage: `url(${img})`,
-  //   width: "200px",
-  //   height: "200px",
-  //   borderRadius: "50%",
-  //   backgroundSize: "cover" /* Ensures the image covers the entire circle */,
-  //   backgroundPosition: "center 10%" /* Centers the image within the circle */,
-  //   backgroundRepeat: "no-repeat" /* Prevents the image from repeating */,
-  // };
   return (
     <Styled>
       <div className="text" style={{ width: "100%", height: "100%" }}>
@@ -87,42 +76,59 @@ const Profile = ({ img, name }) => {
 };
 
 const BouncingLayout = () => {
+  const [clicked, setClicked] = useState(false);
+  const [target, setTarget] = useState("");
+
+  const handleClicked = (clickedone) => {
+    setClicked(true);
+    setTarget(clickedone);
+    console.log(clickedone);
+    return [clicked, target];
+  };
+
   return (
     <div className="container">
-      <h1 className="title pop" style={{ animationDelay: "0.1s" }}>
-        Polyjuice
-      </h1>
-      <div className="circles">
-        <div
-          className="circle pop"
-          style={{
-            animationDelay: "1.0s",
-          }}
-        >
-          <Profile img={harry} name="Harry Potter " />
-        </div>{" "}
-        {/* <Profile delay="1.0" img={harry} /> */}
-        <div
-          className="circle pop"
-          style={{
-            animationDelay: "1.2s",
-          }}
-        >
-          <Profile img={hermione} name="Hermione Granger" />
-        </div>
-        <div className="circle pop" style={{ animationDelay: "1.4s" }}>
-          <Profile img={ron} name="Ron Weasley" />
-        </div>
-      </div>
-      <div
-        className="circle pop last"
-        style={{
-          animationDelay: "1.6s",
-          marginTop: "20px",
-        }}
+      <Title current={clicked} />
+      {/* <h1
+        className={"title pop" + (clicked ? "" : "fade")}
+        style={{ animationDelay: "0.1s" }}
       >
-        <Profile img={wand} name="Who else?" />
+        Polyjuice
+      </h1> */}
+      <div className="circles">
+        <Circle
+          img={harry}
+          name="Harry Potter"
+          delay="1.0s"
+          current={clicked}
+          clickedID={target}
+          onClick={handleClicked}
+        />
+        <Circle
+          img={hermione}
+          name="Hermione Granger"
+          delay="1.2s"
+          current={clicked}
+          clickedID={target}
+          onClick={handleClicked}
+        />
+        <Circle
+          img={ron}
+          name="Ron Weasley"
+          delay="1.4s"
+          current={clicked}
+          clickedID={target}
+          onClick={handleClicked}
+        />
       </div>
+      <Circle
+        img={wand}
+        name="Who else?"
+        delay="1.6s"
+        current={clicked}
+        clickedID={target}
+        onClick={handleClicked}
+      />
     </div>
   );
 };
