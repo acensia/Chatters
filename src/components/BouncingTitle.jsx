@@ -7,6 +7,7 @@ import ron from "../assets/ron.jpg";
 import wand from "../assets/qwand.jpg";
 import style from "styled-components";
 import Circle from "./Circle";
+import Chat from "./Chat";
 
 const Title = ({ current }) => {
   const titleStyle = {
@@ -75,27 +76,23 @@ const Profile = ({ img, name }) => {
   );
 };
 
-const BouncingLayout = () => {
-  const [clicked, setClicked] = useState(false);
+const BouncingLayout = ({ func, curr }) => {
+  // const [clicked, setClicked] = useState(curr);
+  const clicked = curr;
   const [target, setTarget] = useState("");
 
   const handleClicked = (clickedone) => {
-    setClicked(true);
+    // setClicked(true);
+    func(clickedone);
     setTarget(clickedone);
     console.log(clickedone);
     return [clicked, target];
   };
 
   return (
-    <div className="container">
+    <div className={`container`}>
       <Title current={clicked} />
-      {/* <h1
-        className={"title pop" + (clicked ? "" : "fade")}
-        style={{ animationDelay: "0.1s" }}
-      >
-        Polyjuice
-      </h1> */}
-      <div className="circles">
+      <div className={`circles`} hidden={clicked}>
         <Circle
           img={harry}
           name="Harry Potter"
@@ -129,6 +126,7 @@ const BouncingLayout = () => {
         clickedID={target}
         onClick={handleClicked}
       />
+      {curr ? <Chat curr={curr} /> : <></>}
     </div>
   );
 };

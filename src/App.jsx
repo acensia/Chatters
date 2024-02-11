@@ -2,11 +2,15 @@ import { useState } from "react";
 import BouncingLayout from "./components/BouncingTitle";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [start, setStart] = useState(false);
+  const handleProp = (activated) => {
+    setStart(activated);
+    console.log("hi!");
+  };
 
   return (
     <>
-      <BouncingLayout />
+      <BouncingLayout func={handleProp} curr={start} />
     </>
   );
 }
