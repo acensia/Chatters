@@ -94,7 +94,9 @@ const Circle = ({ img, name, delay, current, clickedID, onClick }) => {
   return (
     <Circlepop
       className={name === "Who else?" ? "last" : ""}
-      onClick={() => onClick(name)}
+      onClick={() => {
+        if (!current) onClick(name);
+      }}
     >
       <Circleimg img={img} name={name} />
     </Circlepop>

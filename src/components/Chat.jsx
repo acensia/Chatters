@@ -2,6 +2,8 @@ import "./anime.css";
 
 import React, { useEffect, useState } from "react";
 import "./ChatBox.css"; // Make sure to create a corresponding CSS file
+import OpenAI from "openai";
+import callapi from "./Callapi";
 
 const ChatBox = () => {
   const [messages, setMessages] = useState([]);
@@ -29,6 +31,7 @@ const ChatBox = () => {
         clearInterval(interval);
       }
     }, 50); // Adjust typing speed here
+    callapi();
   };
 
   const handleSubmit = (e) => {
