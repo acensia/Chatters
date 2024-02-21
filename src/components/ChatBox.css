@@ -1,3 +1,7 @@
+:root {
+  --custom-chat-font: italic small-caps bold 3vh cursive;
+}
+
 @keyframes blink {
   50% {
     border-color: transparent;
@@ -37,7 +41,13 @@
 .message {
   margin-bottom: 5px;
   padding: 5px;
-  background-color: #e9e9e9;
+  background-color: #ebe1ce;
+  font: var(--custom-chat-font);
+}
+
+.message-bot {
+  margin-bottom: 5px;
+  padding: 5px;
 }
 
 .message-form {
@@ -48,16 +58,18 @@
   flex-grow: 1;
   border: none;
   padding: 10px;
+  background-color: #f4efe7;
+  font: var(--custom-chat-font);
 }
 
 .send-button {
   border: none;
-  background-color: #007bff;
+  background-color: #886441;
   color: white;
   padding: 10px 15px;
   cursor: pointer;
 }
 
 .send-button:hover {
-  background-color: #0056b3;
+  background-color: #6a4b23;
 }
