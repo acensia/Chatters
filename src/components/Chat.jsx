@@ -9,8 +9,14 @@ const ChatBox = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
 
-  const addMessage = (text) => {
-    const newMessage = { id: Date.now(), text: "", fullText: text, typed: 0 };
+  const addMessage = (text, role) => {
+    const newMessage = {
+      id: Date.now(),
+      text: "",
+      fullText: text,
+      typed: 0,
+      role: role,
+    };
     setMessages((prevMessages) => [...prevMessages, newMessage]);
     typeMessage(newMessage.id, text);
   };
@@ -31,14 +37,18 @@ const ChatBox = () => {
         clearInterval(interval);
       }
     }, 50); // Adjust typing speed here
-    callapi();
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (input.trim()) {
-      addMessage(input);
+      addMessage(input, 1);
       setInput("");
+      callapi(input).then((text) => {
+        console.log(text);
+        addMessage(text, 0);
+      });
+      console.log("Here");
     }
   };
 
@@ -46,7 +56,10 @@ const ChatBox = () => {
     <div className="chat-box letters">
       <div className="chat-log">
         {messages.map((message) => (
-          <div key={message.id} className="message">
+          <div
+            key={message.id}
+            className={message.role === 1 ? "message" : "message-bot"}
+          >
             {message.text}
           </div>
         ))}
