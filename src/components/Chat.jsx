@@ -36,7 +36,7 @@ const ChatBox = () => {
       } else {
         clearInterval(interval);
       }
-    }, 50); // Adjust typing speed here
+    }, 20); // Adjust typing speed here
   };
 
   const handleSubmit = (e) => {
