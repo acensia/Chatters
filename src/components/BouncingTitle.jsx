@@ -8,6 +8,7 @@ import wand from "../assets/qwand.jpg";
 import style from "styled-components";
 import Circle from "./Circle";
 import Chat from "./Chat";
+import callapi from "./Callapi";
 
 const Title = ({ current }) => {
   const titleStyle = {
@@ -86,6 +87,10 @@ const BouncingLayout = ({ func, curr }) => {
     func(clickedone);
     setTarget(clickedone);
     console.log(clickedone);
+    if (clickedone !== "Who else?") {
+      callapi(clickedone, "/name");
+    }
+
     return [clicked, target];
   };
 

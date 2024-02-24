@@ -44,8 +44,7 @@ const ChatBox = () => {
     if (input.trim()) {
       addMessage(input, 1);
       setInput("");
-      callapi(input).then((text) => {
-        console.log(text);
+      callapi(input, "/polyjuice").then((text) => {
         addMessage(text, 0);
       });
       console.log("Here");
