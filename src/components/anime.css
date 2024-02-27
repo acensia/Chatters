@@ -34,3 +34,8 @@
 .hidden {
   animation: fadeOut 1s forwards;
 }
+
+.validation-message {
+  color: red; /* Or any color that makes the message stand out */
+  margin-top: 10px;
+}
