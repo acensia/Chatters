@@ -131,7 +131,7 @@ const BouncingLayout = ({ func, curr }) => {
         clickedID={target}
         onClick={handleClicked}
       />
-      {curr ? <Chat curr={curr} /> : <></>}
+      {curr ? <Chat curr={curr} clicked={target} /> : <></>}
     </div>
   );
 };

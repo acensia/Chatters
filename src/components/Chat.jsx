@@ -79,7 +79,7 @@ const ChatBox = () => {
   );
 };
 
-const Chat = (curr) => {
+const Chat = (curr, clicked) => {
   const chatStyle = {
     position: "absolute",
     opacity: 0,
@@ -91,7 +91,7 @@ const Chat = (curr) => {
   return (
     <>
       <div style={chatStyle}>
-        <ChatBox />
+        {clicked === "Who else?" ? <ChatBox /> : <></>}
       </div>
     </>
   );
