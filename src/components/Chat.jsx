@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import "./ChatBox.css"; // Make sure to create a corresponding CSS file
 import OpenAI from "openai";
 import callapi from "./Callapi";
+import MessageBox from "./NameSelector";
 
 const ChatBox = () => {
   const [messages, setMessages] = useState([]);
@@ -79,7 +80,8 @@ const ChatBox = () => {
   );
 };
 
-const Chat = (curr, clicked) => {
+const Chat = ({ curr, clicked }) => {
+  const [name, setName] = useState(clicked);
   const chatStyle = {
     position: "absolute",
     opacity: 0,
@@ -87,11 +89,18 @@ const Chat = (curr, clicked) => {
     color: curr ? "blue" : "",
     animationDelay: "2s",
   };
-
+  const onInput = (text) => {
+    setName(text);
+  };
+  console.log(clicked);
   return (
     <>
       <div style={chatStyle}>
-        {clicked === "Who else?" ? <ChatBox /> : <></>}
+        {name !== "Who else?" ? (
+          <ChatBox />
+        ) : (
+          <MessageBox isVisible={true} onSubmit={onInput} />
+        )}
       </div>
     </>
   );
