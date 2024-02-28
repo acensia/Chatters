@@ -26,3 +26,4 @@ dist-ssr
 _trashcan/
 .firebase/
 # back/
+back/gptMod.py
