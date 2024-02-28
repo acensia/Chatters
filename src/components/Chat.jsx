@@ -6,7 +6,7 @@ import OpenAI from "openai";
 import callapi from "./Callapi";
 import MessageBox from "./NameSelector";
 
-const ChatBox = () => {
+const ChatBox = ({ appear }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
 
@@ -81,26 +81,33 @@ const ChatBox = () => {
 };
 
 const Chat = ({ curr, clicked }) => {
+  if (!curr) return <></>;
   const [name, setName] = useState(clicked);
-  const chatStyle = {
-    position: "absolute",
-    opacity: 0,
-    animation: curr ? "chatAppear 1s forwards" : "",
-    color: curr ? "blue" : "",
-    animationDelay: "2s",
+  const [ask, setAsk] = useState(name === "Who else?");
+  const chatStyle = (flag) => {
+    return {
+      position: "absolute",
+      opacity: 0,
+      animation: curr ? `chatAppear 1s forwards` : "",
+      color: curr ? "blue" : "",
+      animationDelay: `${flag ? 2 : 0}s`,
+    };
   };
   const onInput = (text) => {
     setName(text);
+    setAsk(text === "Who else?");
   };
-  console.log(clicked);
   return (
     <>
-      <div style={chatStyle}>
-        {name !== "Who else?" ? (
+      {!ask ? (
+        <div style={chatStyle(false)}>
           <ChatBox />
-        ) : (
-          <MessageBox isVisible={true} onSubmit={onInput} />
-        )}
+        </div>
+      ) : (
+        <></>
+      )}
+      <div style={chatStyle(true)}>
+        <MessageBox isVisible={ask} onSubmit={onInput} />
       </div>
     </>
   );

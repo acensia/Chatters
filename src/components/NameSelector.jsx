@@ -15,8 +15,10 @@ function MessageBox({ isVisible, onSubmit }) {
     e.preventDefault();
     if (validateInput(inputValue)) {
       setIsSubmitting(true); // Begin the fade-out effect
-      onSubmit(inputValue); // Pass the input value to the parent component
-      setTimeout(() => setIsSubmitting(false), 1000); // Reset state after animation
+      setTimeout(() => {
+        setIsSubmitting(false);
+        onSubmit(inputValue);
+      }, 1000); // Reset state after animation
       setValidationMessage(""); // Clear any previous validation messages
     } else {
       // Update the state to show a validation message
