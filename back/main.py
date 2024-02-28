@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 from keep_alive import keep_alive
-from gptMod import sendmsg, name
+from gptMod import sendmsg, name, check
 
 app = Flask(__name__)
 CORS(app)
@@ -56,6 +56,16 @@ def name_gpt():
   print("name is done")
 
   return inst
+
+
+@app.route('/check', methods=['POST'])
+def check_gpt():
+  data = request.json
+  req_name = data['text'] if data is not None else None
+  res = check(req_name)
+  print("check is done")
+
+  return res if 'No' not in res else 'no'
 
 
 if __name__ == '__main__':

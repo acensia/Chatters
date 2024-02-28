@@ -5,6 +5,7 @@ import os
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 temperature = 1.0
 max_tokens = 512
+MODEL = "gpt-3.5-turbo"
 
 
 def name(text):
@@ -25,7 +26,7 @@ def name(text):
 
   rendered = [{"role": "system", "content": inst_inst}]
   inst = client.chat.completions.create(
-      model="gpt-3.5-turbo",
+      model=MODEL,
       messages=rendered,
       temperature=temperature,
       top_p=1.0,
@@ -37,7 +38,27 @@ def name(text):
 
 
 def check(text):
-  return text + "check"
+  inst = "User will tell you a name. If any character with that name exists in Harry Potter, repeat the name. \
+    If not the same, but the similar name exists in Harry Potter, tell \"only\" the right name of it. \
+    If any character with the name doesn't exist, only say No."
+
+  rendered = [{
+      "role": "system",
+      "content": inst
+  }, {
+      "role": "user",
+      "content": text
+  }]
+  res = client.chat.completions.create(
+      model=MODEL,
+      messages=rendered,
+      temperature=0.1,
+      max_tokens=7,
+      stop=["<|endoftext|>"],
+  )
+  ans = res.choices[0].message.content
+  print(ans)
+  return ans
 
 
 def sendmsg(text):
