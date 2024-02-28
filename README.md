@@ -7,6 +7,14 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-# Polyjuice chatter
+# Polyjuice Chatter
 
 Basic idea is from [Polyjuice - discord bot](https://github.com/acensia/Polyjuice_dis).
+
+# Update Log
+
+- 2024.02.24
+  Polyjuice Chatter-beta launched
+
+- 2024.02.28
+  The functions of Polyjuice-discord completely implemented.
