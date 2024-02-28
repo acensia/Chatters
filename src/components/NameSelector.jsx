@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./anime.css"; // Adjust the path based on your file structure
+import callapi from "./Callapi";
 
 function MessageBox({ isVisible, onSubmit }) {
   const [inputValue, setInputValue] = useState("");
@@ -7,14 +8,19 @@ function MessageBox({ isVisible, onSubmit }) {
   const [validationMessage, setValidationMessage] = useState("");
 
   // Validate the input value before submitting
-  const validateInput = (value) => {
-    return value.includes("a");
+  const validateInput = async (value) => {
+    const checked = callapi(value, "/check").then((res) => {
+      console.log(`hi ${res}`);
+      result = res === "yes";
+    });
+    return result;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateInput(inputValue)) {
       setIsSubmitting(true); // Begin the fade-out effect
+      callapi(inputValue, "/name");
       setTimeout(() => {
         setIsSubmitting(false);
         onSubmit(inputValue);

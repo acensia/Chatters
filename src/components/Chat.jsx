@@ -6,7 +6,7 @@ import OpenAI from "openai";
 import callapi from "./Callapi";
 import MessageBox from "./NameSelector";
 
-const ChatBox = ({ appear }) => {
+const ChatBox = ({ name }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
 
@@ -53,29 +53,32 @@ const ChatBox = ({ appear }) => {
   };
 
   return (
-    <div className="chat-box letters">
-      <div className="chat-log">
-        {messages.map((message) => (
-          <div
-            key={message.id}
-            className={message.role === 1 ? "message" : "message-bot"}
-          >
-            {message.text}
-          </div>
-        ))}
+    <div style={{ fontFamily: "cursive", color: "black" }}>
+      {name}
+      <div className="chat-box letters">
+        <div className="chat-log">
+          {messages.map((message) => (
+            <div
+              key={message.id}
+              className={message.role === 1 ? "message" : "message-bot"}
+            >
+              {message.text}
+            </div>
+          ))}
+        </div>
+        <form onSubmit={handleSubmit} className="message-form">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Type a message..."
+            className="message-input"
+          />
+          <button type="submit" className="send-button">
+            Send
+          </button>
+        </form>
       </div>
-      <form onSubmit={handleSubmit} className="message-form">
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Type a message..."
-          className="message-input"
-        />
-        <button type="submit" className="send-button">
-          Send
-        </button>
-      </form>
     </div>
   );
 };
@@ -101,7 +104,7 @@ const Chat = ({ curr, clicked }) => {
     <>
       {!ask ? (
         <div style={chatStyle(false)}>
-          <ChatBox />
+          <ChatBox name={name} />
         </div>
       ) : (
         <></>
