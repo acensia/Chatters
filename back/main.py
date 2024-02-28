@@ -32,8 +32,7 @@ def home():
 @app.route('/polyjuice', methods=['POST'])
 def polyjuice_gpt():
   data = request.json
-  print(chatbot.name)
-  print("Here")
+  print(f"- Msg to {chatbot.name}")
 
   msg = data['text'] if data is not None else None
 
@@ -53,7 +52,7 @@ def name_gpt():
   chatbot.name = data['text'] if data is not None else None
   inst = name(chatbot.name)
   chatbot.instAdd(inst)
-  print("name is done")
+  print(f"- Name \"{chatbot.name}\" is online")
 
   return inst
 
@@ -63,7 +62,7 @@ def check_gpt():
   data = request.json
   req_name = data['text'] if data is not None else None
   res = check(req_name)
-  print("check is done")
+  print(f"- Name check for \"{req_name}\"is done")
 
   return res if 'No' not in res else 'no'
 
