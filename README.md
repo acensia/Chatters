@@ -18,3 +18,6 @@ Basic idea is from [Polyjuice - discord bot](https://github.com/acensia/Polyjuic
 
 - 2024.02.28
   The functions of Polyjuice-discord completely implemented.
+
+- 2024.02.29
+  Fix the case that server doesn't respond but application is activated.
