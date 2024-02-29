@@ -70,5 +70,5 @@ def sendmsg(text):
       max_tokens=max_tokens,
       stop=["<|endoftext|>"],
   )
-  print(responses.choices[0].message.content)
+  print("answer is "+responses.choices[0].message.content)
   return responses.choices[0].message.content

@@ -1,5 +1,5 @@
 :root {
-  --custom-chat-font: italic small-caps bold 3vh cursive;
+  --custom-chat-font: italic bold 3vh cursive;
 }
 
 @keyframes blink {

@@ -25,8 +25,8 @@ const callapi = async (textData, endpoint) => {
     return responseData;
   } catch (error) {
     console.error("Error:", error);
+    return error;
   }
-  console.log("Passed");
 };
 
 export default callapi;

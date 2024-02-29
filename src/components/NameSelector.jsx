@@ -27,9 +27,9 @@ function MessageBox({ isVisible, onSubmit }) {
         if (res !== inputValue) setValidationMessage(`Correct name is ${res}`); // Clear any previous validation messages
         setTimeout(() => {
           setIsSubmitting(false);
-          onSubmit(res);
           setValidationMessage(""); // Clear any previous validation messages
         }, 1000); // Reset state after animation
+        onSubmit(res);
       } else {
         setValidationMessage(`No \"${inputValue}\" in Harry Potter world`);
       }
@@ -48,10 +48,12 @@ function MessageBox({ isVisible, onSubmit }) {
     // }
   };
 
-  if (!isVisible) return null;
-
   return (
-    <div className={`message-box ${isSubmitting ? "hidden" : ""}`}>
+    <div
+      className={`invisible ${isVisible ? "message-box" : ""} ${
+        isSubmitting ? "hidden" : ""
+      }`}
+    >
       <form onSubmit={handleSubmit}>
         <input
           type="text"

@@ -26,6 +26,9 @@
     opacity: 0;
   }
 }
+.invisible {
+  opacity: 0;
+}
 
 .message-box {
   animation: fadeIn 1s forwards;

@@ -87,14 +87,12 @@ const Chat = ({ curr, clicked }) => {
   if (!curr) return <></>;
   const [name, setName] = useState(clicked);
   const [ask, setAsk] = useState(name === "Who else?");
-  const chatStyle = (flag) => {
-    return {
-      position: "absolute",
-      opacity: 0,
-      animation: curr ? `chatAppear 1s forwards` : "",
-      color: curr ? "blue" : "",
-      animationDelay: `${flag ? 2 : 0}s`,
-    };
+  const chatStyle = {
+    position: "absolute",
+    opacity: 0,
+    animation: curr ? `chatAppear 1s forwards` : "",
+    color: curr ? "blue" : "",
+    animationDelay: `2s`,
   };
   const onInput = (text) => {
     setName(text);
@@ -103,13 +101,13 @@ const Chat = ({ curr, clicked }) => {
   return (
     <>
       {!ask ? (
-        <div style={chatStyle(false)}>
+        <div style={chatStyle}>
           <ChatBox name={name} />
         </div>
       ) : (
         <></>
       )}
-      <div style={chatStyle(true)}>
+      <div style={chatStyle}>
         <MessageBox isVisible={ask} onSubmit={onInput} />
       </div>
     </>
