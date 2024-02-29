@@ -48,6 +48,7 @@
 .message-bot {
   margin-bottom: 5px;
   padding: 5px;
+  font: var(--custom-chat-font);
 }
 
 .message-form {
