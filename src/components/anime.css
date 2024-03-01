@@ -39,6 +39,9 @@
 }
 
 .validation-message {
-  color: red; /* Or any color that makes the message stand out */
-  margin-top: 10px;
+  color: #ff4444; /* Or any color that makes the message stand out */
+  font: var(--custom-chat-font);
+  background-color: #222222;
+  border-radius: 2vh;
+  padding: 0.5vh;
 }
