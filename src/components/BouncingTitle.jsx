@@ -33,15 +33,17 @@ const BouncingLayout = ({ func, curr }) => {
     // setClicked(true);
     console.log(clickedone);
     if (clickedone !== "Who else?") {
+      func(clickedone);
+      setTarget(clickedone);
       callapi(clickedone, "/name")
         .then((msg) => {
           if (msg.includes("Error")) throw new Error(msg);
-          func(clickedone);
-          setTarget(clickedone);
         })
         .catch((error) => {
           console.error("Fetch error: ", error.message);
           alert("Failed to reach the server. Please try again later.");
+          func(false);
+          setTarget("");
         });
     } else {
       func(clickedone);
