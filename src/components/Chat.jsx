@@ -53,8 +53,10 @@ const ChatBox = ({ name }) => {
   };
 
   return (
-    <div style={{ fontFamily: "cursive", color: "black" }}>
-      {name}
+    <div
+      style={{ alignContent: "center", fontFamily: "cursive", color: "black" }}
+    >
+      <div>{name}</div>
       <div className="chat-box letters">
         <div className="chat-log">
           {messages.map((message) => (

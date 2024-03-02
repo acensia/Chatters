@@ -25,6 +25,7 @@ const callapi = async (textData, endpoint) => {
     return responseData;
   } catch (error) {
     console.error("Error:", error);
+    alert("Failed to reach the server. Please try again later.");
     return error;
   }
 };

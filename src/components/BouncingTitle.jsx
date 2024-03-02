@@ -24,29 +24,24 @@ const Title = ({ current }) => {
   return <h1 style={titleStyle}>Polyjuice</h1>;
 };
 
-const BouncingLayout = ({ func, curr }) => {
-  // const [clicked, setClicked] = useState(curr);
-  const clicked = curr;
+const BouncingLayout = () => {
+  const [clicked, setClicked] = useState(false);
   const [target, setTarget] = useState("");
 
   const handleClicked = (clickedone) => {
     // setClicked(true);
     console.log(clickedone);
     if (clickedone !== "Who else?") {
-      func(clickedone);
+      setClicked(clickedone);
       setTarget(clickedone);
-      callapi(clickedone, "/name")
-        .then((msg) => {
-          if (msg.includes("Error")) throw new Error(msg);
-        })
-        .catch((error) => {
-          console.error("Fetch error: ", error.message);
-          alert("Failed to reach the server. Please try again later.");
-          func(false);
-          setTarget("");
-        });
+      callapi(clickedone, "/name").catch((error) => {
+        console.error("Fetch error: ", error.message);
+        // alert("Failed to reach the server. Please try again later.");
+        setClicked(false);
+        setTarget("");
+      });
     } else {
-      func(clickedone);
+      setClicked(clickedone);
       setTarget(clickedone);
     }
 
@@ -90,7 +85,7 @@ const BouncingLayout = ({ func, curr }) => {
         clickedID={target}
         onClick={handleClicked}
       />
-      <Chat curr={curr} clicked={target} onClick={handleClicked} />
+      <Chat curr={clicked} clicked={target} onClick={handleClicked} />
     </div>
   );
 };
