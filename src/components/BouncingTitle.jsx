@@ -26,23 +26,19 @@ const Title = ({ current }) => {
 
 const BouncingLayout = () => {
   const [clicked, setClicked] = useState(false);
-  const [target, setTarget] = useState("");
 
   const handleClicked = (clickedone) => {
     // setClicked(true);
     console.log(clickedone);
     if (clickedone !== "Who else?") {
       setClicked(clickedone);
-      setTarget(clickedone);
       callapi(clickedone, "/name").catch((error) => {
         console.error("Fetch error: ", error.message);
         // alert("Failed to reach the server. Please try again later.");
         setClicked(false);
-        setTarget("");
       });
     } else {
       setClicked(clickedone);
-      setTarget(clickedone);
     }
 
     return [clicked, target];
@@ -57,7 +53,6 @@ const BouncingLayout = () => {
           name="Harry Potter"
           delay="1.0s"
           current={clicked}
-          clickedID={target}
           onClick={handleClicked}
         />
         <Circle
@@ -65,7 +60,6 @@ const BouncingLayout = () => {
           name="Hermione Granger"
           delay="1.2s"
           current={clicked}
-          clickedID={target}
           onClick={handleClicked}
         />
         <Circle
@@ -73,7 +67,6 @@ const BouncingLayout = () => {
           name="Ron Weasley"
           delay="1.4s"
           current={clicked}
-          clickedID={target}
           onClick={handleClicked}
         />
       </div>
@@ -82,10 +75,9 @@ const BouncingLayout = () => {
         name="Who else?"
         delay="1.6s"
         current={clicked}
-        clickedID={target}
         onClick={handleClicked}
       />
-      <Chat curr={clicked} clicked={target} onClick={handleClicked} />
+      <Chat curr={clicked} onClick={handleClicked} />
     </div>
   );
 };

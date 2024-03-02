@@ -2,7 +2,6 @@ import "./anime.css";
 
 import React, { useEffect, useState } from "react";
 import "./ChatBox.css"; // Make sure to create a corresponding CSS file
-import OpenAI from "openai";
 import callapi from "./Callapi";
 import MessageBox from "./NameSelector";
 
@@ -85,9 +84,9 @@ const ChatBox = ({ name }) => {
   );
 };
 
-const Chat = ({ curr, clicked }) => {
+const Chat = ({ curr }) => {
   if (!curr) return <></>;
-  const [name, setName] = useState(clicked);
+  const [name, setName] = useState(curr);
   const [ask, setAsk] = useState(name === "Who else?");
   const chatStyle = {
     position: "absolute",
