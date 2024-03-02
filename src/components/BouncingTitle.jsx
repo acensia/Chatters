@@ -24,30 +24,21 @@ const Title = ({ current }) => {
   return <h1 style={titleStyle}>Polyjuice</h1>;
 };
 
-const BouncingLayout = ({ func, curr }) => {
-  // const [clicked, setClicked] = useState(curr);
-  const clicked = curr;
-  const [target, setTarget] = useState("");
+const BouncingLayout = () => {
+  const [clicked, setClicked] = useState(false);
 
   const handleClicked = (clickedone) => {
     // setClicked(true);
     console.log(clickedone);
     if (clickedone !== "Who else?") {
-      func(clickedone);
-      setTarget(clickedone);
-      callapi(clickedone, "/name")
-        .then((msg) => {
-          if (msg.includes("Error")) throw new Error(msg);
-        })
-        .catch((error) => {
-          console.error("Fetch error: ", error.message);
-          alert("Failed to reach the server. Please try again later.");
-          func(false);
-          setTarget("");
-        });
+      setClicked(clickedone);
+      callapi(clickedone, "/name").catch((error) => {
+        console.error("Fetch error: ", error.message);
+        // alert("Failed to reach the server. Please try again later.");
+        setClicked(false);
+      });
     } else {
-      func(clickedone);
-      setTarget(clickedone);
+      setClicked(clickedone);
     }
 
     return [clicked, target];
@@ -62,7 +53,6 @@ const BouncingLayout = ({ func, curr }) => {
           name="Harry Potter"
           delay="1.0s"
           current={clicked}
-          clickedID={target}
           onClick={handleClicked}
         />
         <Circle
@@ -70,7 +60,6 @@ const BouncingLayout = ({ func, curr }) => {
           name="Hermione Granger"
           delay="1.2s"
           current={clicked}
-          clickedID={target}
           onClick={handleClicked}
         />
         <Circle
@@ -78,7 +67,6 @@ const BouncingLayout = ({ func, curr }) => {
           name="Ron Weasley"
           delay="1.4s"
           current={clicked}
-          clickedID={target}
           onClick={handleClicked}
         />
       </div>
@@ -87,10 +75,9 @@ const BouncingLayout = ({ func, curr }) => {
         name="Who else?"
         delay="1.6s"
         current={clicked}
-        clickedID={target}
         onClick={handleClicked}
       />
-      <Chat curr={curr} clicked={target} onClick={handleClicked} />
+      <Chat curr={clicked} onClick={handleClicked} />
     </div>
   );
 };

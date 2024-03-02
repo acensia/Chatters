@@ -83,7 +83,7 @@ const Circle = ({ img, name, delay, current, clickedID, onClick }) => {
     background-repeat: no-repeat; /* Prevents the image from repeating */
     animation: ${
       current
-        ? clickedID === name
+        ? current === name // changed
           ? `${moveType()} 2s ease forwards`
           : "fade 0.5s forwards"
         : "pop 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards"
