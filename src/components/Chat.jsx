@@ -47,7 +47,6 @@ const ChatBox = ({ name }) => {
       callapi(input, "/polyjuice").then((text) => {
         addMessage(text, 0);
       });
-      console.log("Here");
     }
   };
 
