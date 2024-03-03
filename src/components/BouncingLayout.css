@@ -12,6 +12,7 @@
   width: 100vw; /* Ensure the container takes up the full width */
   box-sizing: border-box; /* Ensure padding does not affect the overall width */
   background-color: rgb(249, 222, 160);
+  font: var(--custom-chat-font);
 }
 .container_toggled {
   height: 0px;

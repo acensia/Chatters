@@ -45,7 +45,7 @@ const BouncingLayout = () => {
   };
 
   return (
-    <div className={`container`}>
+    <div className="container">
       <Title current={clicked} />
       <div className={`circles`} hidden={clicked}>
         <Circle

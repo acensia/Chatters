@@ -55,7 +55,7 @@ const Circleimg = ({ img, name }) => {
   );
 };
 
-const Circle = ({ img, name, delay, current, clickedID, onClick }) => {
+const Circle = ({ img, name, delay, current, onClick }) => {
   const last = name === "Who else?";
   const moveType = () => {
     switch (name) {
