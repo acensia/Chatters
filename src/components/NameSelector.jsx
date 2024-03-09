@@ -18,7 +18,7 @@ function MessageBox({ isVisible, onSubmit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const checked = callapi(inputValue, "/check")
+    callapi(inputValue, "/check")
       .then((res) => {
         if (res.includes("Error")) throw new Error(res);
         console.log(`Check Result : ${res}`);
@@ -50,18 +50,24 @@ function MessageBox({ isVisible, onSubmit }) {
         isSubmitting ? "hidden" : ""
       }`}
     >
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          required
-        />
-        <button type="submit">Submit</button>
-        {validationMessage && (
-          <p className="validation-message">{validationMessage}</p>
-        )}
-      </form>
+      <div style={{ alignContent: "center" }}>
+        <form onSubmit={handleSubmit}>
+          Call whose name is&nbsp;
+          <input
+            type="text"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            style={{ width: "10vw", backgroundColor: "transparent" }}
+            required
+          />
+          {/* <button type="submit" style={{ margin: "1vh" }}>
+            Submit
+          </button> */}
+          {validationMessage && (
+            <p className="validation-message">{validationMessage}</p>
+          )}
+        </form>
+      </div>
     </div>
   );
 }

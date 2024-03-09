@@ -100,7 +100,7 @@ const Chat = ({ curr }) => {
     position: "absolute",
     opacity: 0,
     animation: curr ? `chatAppear 1s forwards` : "",
-    color: curr ? "blue" : "",
+    // color: curr ? "blue" : "",
     animationDelay: `2s`,
   };
   const onInput = (text) => {
