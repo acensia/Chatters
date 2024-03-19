@@ -4,6 +4,7 @@ import style from "styled-components";
 
 const Circleimg = ({ img, name }) => {
   // const [isHovered, setHovered] = useState(false);
+  // const [currName, setName] = useState(name);
 
   const Styled = style.div`
       position:relative;
@@ -69,6 +70,7 @@ const Circle = ({ img, name, delay, current, onClick }) => {
         return "moveUpMore";
     }
   };
+  console.log(current);
   const Circlepop = style.div`
     ${current ? "transform:scale(1);" : "transform:scale(0);"}
     width: ${last ? "16vw" : "22vw"};

@@ -1,9 +1,9 @@
 // BouncingLayout.jsx
 import React, { useState } from "react";
 import "./BouncingLayout.css"; // Ensure the CSS file is correctly linked
-import harry from "../assets/harry.jpg";
-import hermione from "../assets/hermione.jpg";
-import ron from "../assets/ron.jpg";
+import harry from "../assets/HarryPotter.jpg";
+import hermione from "../assets/HermioneGranger.jpg";
+import ron from "../assets/RonWeasley.jpg";
 import wand from "../assets/qwand.jpg";
 import style from "styled-components";
 import Circle from "./Circle";
