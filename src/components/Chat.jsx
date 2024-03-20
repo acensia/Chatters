@@ -92,7 +92,7 @@ const ChatBox = ({ name }) => {
   );
 };
 
-const Chat = ({ curr }) => {
+const Chat = ({ curr, changeName }) => {
   if (!curr) return <></>;
   const [name, setName] = useState(curr);
   const [ask, setAsk] = useState(name === "Who else?");
@@ -106,6 +106,7 @@ const Chat = ({ curr }) => {
   const onInput = (text) => {
     setName(text);
     setAsk(text === "Who else?");
+    changeName(text);
   };
   return (
     <>

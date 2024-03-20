@@ -24,6 +24,7 @@ function MessageBox({ isVisible, onSubmit }) {
         console.log(`Check Result : ${res}`);
         if (res !== "no") {
           setIsSubmitting(true); // Begin the fade-out effect
+          res = res.replace(/[^a-zA-Z0-9]/g, "");
           console.log(res);
           callapi(res, "/name");
           if (res !== inputValue) {
