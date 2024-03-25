@@ -24,8 +24,28 @@ const Title = ({ current }) => {
   return <h1 style={titleStyle}>Polyjuice</h1>;
 };
 
+const Asker = ({ clicked, handleClicked }) => {
+  const [realName, setReal] = useState(clicked);
+  const onName = (text) => {
+    setReal(text);
+  };
+  return (
+    <>
+      <Circle
+        img={wand}
+        name="Who else?"
+        delay="1.6s"
+        current={clicked}
+        onClick={handleClicked}
+      />
+      <Chat curr={clicked} changeName={onName} />
+    </>
+  );
+};
+
 const BouncingLayout = () => {
   const [clicked, setClicked] = useState(false);
+  const [name, setName] = useState("");
 
   const handleClicked = (clickedone) => {
     // setClicked(true);
@@ -39,6 +59,7 @@ const BouncingLayout = () => {
       });
     } else {
       setClicked(clickedone);
+      setName(clickedone);
     }
 
     return [clicked, target];
@@ -70,14 +91,7 @@ const BouncingLayout = () => {
           onClick={handleClicked}
         />
       </div>
-      <Circle
-        img={wand}
-        name="Who else?"
-        delay="1.6s"
-        current={clicked}
-        onClick={handleClicked}
-      />
-      <Chat curr={clicked} onClick={handleClicked} />
+      <Asker clicked={name} handleClicked={handleClicked} />
     </div>
   );
 };
