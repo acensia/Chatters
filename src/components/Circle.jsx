@@ -56,7 +56,7 @@ const Circleimg = ({ img, name }) => {
   );
 };
 
-const Circle = ({ img, name, delay, current, onClick }) => {
+const Circle = React.memo(({ img, name, delay, current, onClick }) => {
   const last = name === "Who else?";
   const moveType = () => {
     switch (name) {
@@ -103,6 +103,6 @@ const Circle = ({ img, name, delay, current, onClick }) => {
       <Circleimg img={img} name={name} />
     </Circlepop>
   );
-};
+});
 
 export default Circle;

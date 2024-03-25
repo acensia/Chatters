@@ -91,7 +91,7 @@ const BouncingLayout = () => {
           onClick={handleClicked}
         />
       </div>
-      <Asker clicked={clicked} handleClicked={handleClicked} />
+      <Asker clicked={name} handleClicked={handleClicked} />
     </div>
   );
 };
