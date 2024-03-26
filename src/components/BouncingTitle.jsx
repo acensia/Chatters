@@ -29,6 +29,7 @@ const Asker = ({ clicked, handleClicked }) => {
   const onName = (text) => {
     setReal(text);
   };
+  console.log("Asker's name is " + clicked);
   return (
     <>
       <Circle
@@ -45,7 +46,7 @@ const Asker = ({ clicked, handleClicked }) => {
 
 const BouncingLayout = () => {
   const [clicked, setClicked] = useState(false);
-  const [name, setName] = useState("");
+  // const [name, setName] = useState("");
 
   const handleClicked = (clickedone) => {
     // setClicked(true);
@@ -62,7 +63,7 @@ const BouncingLayout = () => {
       setName(clickedone);
     }
 
-    return [clicked, target];
+    return clicked;
   };
 
   return (
@@ -91,7 +92,7 @@ const BouncingLayout = () => {
           onClick={handleClicked}
         />
       </div>
-      <Asker clicked={name} handleClicked={handleClicked} />
+      <Asker clicked={clicked} handleClicked={handleClicked} />
     </div>
   );
 };

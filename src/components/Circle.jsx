@@ -70,7 +70,7 @@ const Circle = React.memo(({ img, name, delay, current, onClick }) => {
         return "moveUpMore";
     }
   };
-  console.log(current);
+  console.log("Clicked one is " + current);
   const Circlepop = style.div`
     ${current ? "transform:scale(1);" : "transform:scale(0);"}
     width: ${last ? "16vw" : "22vw"};
