@@ -1,6 +1,6 @@
 import "./anime.css";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./ChatBox.css"; // Make sure to create a corresponding CSS file
 import callapi from "./Callapi";
 import MessageBox from "./NameSelector";
@@ -8,6 +8,8 @@ import MessageBox from "./NameSelector";
 const ChatBox = ({ name }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+
+  const containerRef = useRef(null);
 
   const addMessage = (text, role) => {
     const newMessage = {
@@ -38,7 +40,14 @@ const ChatBox = ({ name }) => {
       }
     }, 20); // Adjust typing speed here
   };
-
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTo({
+        top: containerRef.current.scrollHeight,
+        behavior: "smooth", // Optional: for smooth scrolling
+      });
+    }
+  }, [messages]);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (input.trim()) {
@@ -65,7 +74,7 @@ const ChatBox = ({ name }) => {
         {name}
       </div>
       <div className="chat-box letters">
-        <div className="chat-log">
+        <div className="chat-log" ref={containerRef}>
           {messages.map((message) => (
             <div
               key={message.id}
