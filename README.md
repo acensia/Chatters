@@ -21,3 +21,6 @@ Basic idea is from [Polyjuice - discord bot](https://github.com/acensia/Polyjuic
 
 - 2024.02.29
   Fix the case that server doesn't respond but application is activated.
+
+- 2024.03.31
+  Scrolling added as a message attached
