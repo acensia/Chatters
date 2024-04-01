@@ -3,6 +3,7 @@ from flask_cors import CORS
 
 from keep_alive import keep_alive
 from gptMod import sendmsg, name, check
+import uuid
 
 app = Flask(__name__)
 CORS(app)
@@ -22,6 +23,7 @@ class Thr:
 
 
 chatbot = Thr()
+sessions = {}
 
 
 @app.route('/')
@@ -35,6 +37,7 @@ def polyjuice_gpt():
   print(f"- Msg to {chatbot.name}")
 
   msg = data['text'] if data is not None else None
+  print(msg)
 
   if msg is None:
     return "Error"
@@ -52,8 +55,15 @@ def name_gpt():
   chatbot.name = data['text'] if data is not None else None
   inst = name(chatbot.name)
   chatbot.instAdd(inst)
-  print(f"- Name \"{chatbot.name}\" is online")
+  print(f"- Name \"{chatbot.name}\"is done")
 
+  session_id = str(uuid.uuid4())
+
+  sessions[session_id] = Thr()
+  sessions[session_id].name = data['text']
+  sessions[session_id].instAdd(inst)
+
+  # return jsonify({'session_id': session_id})
   return inst
 
 
