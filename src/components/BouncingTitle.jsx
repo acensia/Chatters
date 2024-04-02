@@ -1,5 +1,5 @@
 // BouncingLayout.jsx
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import "./BouncingLayout.css"; // Ensure the CSS file is correctly linked
 import harry from "../assets/HarryPotter.jpg";
 import hermione from "../assets/HermioneGranger.jpg";
@@ -24,11 +24,11 @@ const Title = ({ current }) => {
   return <h1 style={titleStyle}>Polyjuice</h1>;
 };
 
-const Asker = ({ clicked, handleClicked }) => {
-  const [realName, setReal] = useState(clicked);
-  const onName = (text) => {
-    setReal(text);
-  };
+const Asker = ({ clicked, handleClicked, id }) => {
+  // const [realName, setReal] = useState(clicked);
+  // const onName = (text) => {
+  //   setReal(text);
+  // };
   console.log("Asker's name is " + clicked);
   return (
     <>
@@ -39,33 +39,45 @@ const Asker = ({ clicked, handleClicked }) => {
         current={clicked}
         onClick={handleClicked}
       />
-      <Chat curr={clicked} changeName={onName} />
+      <Chat curr={clicked} /*changeName={onName}*/ id={id} />
     </>
   );
 };
 
-const BouncingLayout = () => {
+const BouncingLayout = React.memo(() => {
   const [clicked, setClicked] = useState(false);
-  // const [name, setName] = useState("");
+  const [id, setId] = useState(false);
 
-  const handleClicked = (clickedone) => {
-    // setClicked(true);
-    console.log(clickedone);
-    if (clickedone !== "Who else?") {
-      setClicked(clickedone);
-      callapi(clickedone, "/name").catch((error) => {
-        console.error("Fetch error: ", error.message);
-        // alert("Failed to reach the server. Please try again later.");
-        setClicked(false);
-      });
-    } else {
-      setClicked(clickedone);
-      setName(clickedone);
-    }
+  const handleClicked = useCallback(
+    (clickedone) => {
+      // setClicked(true);
+      console.log(clickedone);
+      if (clickedone !== "Who else?") {
+        setClicked(clickedone);
+        callapi({ text: clickedone }, "/name")
+          .then((res) => {
+            setId(res["session_id"]);
+          })
+          .catch((error) => {
+            console.error("Fetch error: ", error.message);
+            // alert("Failed to reach the server. Please try again later.");
+            setClicked(false);
+          });
+      } else {
+        setClicked(clickedone);
+      }
 
-    return clicked;
-  };
+      return clicked;
+    },
+    [clicked]
+  );
 
+  // useEffect(() => {
+  //   if (name) {
+  //     console.log("hhere??");
+  //     setName(false);
+  //   }
+  // }, [name]);
   return (
     <div className="container">
       <Title current={clicked} />
@@ -92,9 +104,9 @@ const BouncingLayout = () => {
           onClick={handleClicked}
         />
       </div>
-      <Asker clicked={clicked} handleClicked={handleClicked} />
+      <Asker clicked={clicked} handleClicked={handleClicked} id={id} />
     </div>
   );
-};
+}, []);
 
 export default BouncingLayout;
