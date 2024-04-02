@@ -1,74 +1,87 @@
-import openai
-from openai import OpenAI
-import os
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-temperature = 1.0
-max_tokens = 512
-MODEL = "gpt-3.5-turbo"
+from keep_alive import keep_alive
+from gptMod import sendmsg, name, check
+import uuid
 
-
-def name(text):
-  inst_inst = f"You are prompt engineer to have gpt make responses better. \
-  Give me an instruction to prompt gpt to respond by mimicking {text}'s \
-  characteristics, including personalities, experiences, speeches, and knowledges. \
-  It includes how friendly with muggles, and how familiar with muggle techknowledges. \
-  Only the instruction sentence, without any explanation."
-
-  default_inst = "You are talking with your muggle friend, but how friendly you are depends on your personality. \
-  If you hate muggles, you don't need to speak friendly. \
-  You can have knowledge for things that appeared \
-  after the Harry Potter era, but how deeply you know them depends on your personality \
-  Match your everything, including the name, experiences, as your characteristic is. \
-  Answer as you are in a dialogue."
-
-  # To summarize, you should tell GPT to act exactly like {messages}. \
-
-  rendered = [{"role": "system", "content": inst_inst}]
-  inst = client.chat.completions.create(
-      model=MODEL,
-      messages=rendered,
-      temperature=temperature,
-      top_p=1.0,
-      max_tokens=max_tokens,
-      stop=["<|endoftext|>"],
-  )
-
-  return inst.choices[0].message.content + default_inst
+app = Flask(__name__)
+CORS(app)
 
 
-def check(text):
-  inst = "User will tell you a name. If any character with that name exists in Harry Potter, repeat the name. \
-    If not the same, but the similar name exists in Harry Potter, tell \"only\" the right name of it. \
-    If any character with the name doesn't exist, only say No."
+class Thr:
 
-  rendered = [{
-      "role": "system",
-      "content": inst
-  }, {
-      "role": "user",
-      "content": text
-  }]
-  res = client.chat.completions.create(
-      model=MODEL,
-      messages=rendered,
-      temperature=0.1,
-      max_tokens=7,
-      stop=["<|endoftext|>"],
-  )
-  ans = res.choices[0].message.content
-  print(ans)
-  return ans
+  def __init__(self, name=None):
+    self.name = name
+    self.msg_list = []
+
+  def msgAdd(self, msg):
+    self.msg_list.append(msg)
+
+  def instAdd(self, inst):
+    self.msg_list.append({"role": "system", "content": inst})
 
 
-def sendmsg(text):
-  responses = client.chat.completions.create(
-      model="gpt-3.5-turbo",
-      messages=text,
-      temperature=temperature,
-      top_p=1.0,
-      max_tokens=max_tokens,
-      stop=["<|endoftext|>"],
-  )
-  print("answer is "+responses.choices[0].message.content)
-  return responses.choices[0].message.content
+# chatbot = Thr()
+sessions = {}
+
+
+@app.route('/')
+def home():
+  return 'Hello, Wizard!'
+
+
+@app.route('/polyjuice', methods=['POST'])
+def polyjuice_gpt():
+  data = request.json
+  session_chatbot = sessions[data["id"]]
+  print(f"from {data['id']}")
+  print(session_chatbot.name)
+  print(f"- Msg #{len(session_chatbot.msg_list)/2} to {session_chatbot.name}")
+
+  msg = data['message'] if data is not None else None
+  print(msg)
+  # print(session_chatbot.msg_list)
+
+  if msg is None:
+    return "Error"
+  session_chatbot.msgAdd({"role": "user", "content": msg})
+
+  new_msg = sendmsg(session_chatbot.msg_list)
+  session_chatbot.msgAdd({"role": "assistant", "content": new_msg})
+
+  return jsonify({"message": new_msg})
+
+
+@app.route('/name', methods=['POST'])
+def name_gpt():
+  data = request.json
+  # chatbot.name = data['text'] if data is not None else None
+  inst = name(data['text'])
+  # chatbot.instAdd(inst)
+  print(f"- Name \"{data['text']}\"is done")
+
+  session_id = str(uuid.uuid4())
+
+  sessions[session_id] = Thr()
+  sessions[session_id].name = data['text']
+  sessions[session_id].instAdd(inst)
+
+  return jsonify({'session_id': session_id})
+  # return inst
+
+
+@app.route('/check', methods=['POST'])
+def check_gpt():
+  data = request.json
+  req_name = data['text'] if data is not None else None
+  res = check(req_name)
+  print(f"- Name check for \"{req_name}\"is done")
+  checked = res if 'No' not in res else 'no'
+
+  return jsonify({'checked': checked})
+
+
+if __name__ == '__main__':
+  app.run(host='0.0.0.0', port=8080)
+  # keep_alive()

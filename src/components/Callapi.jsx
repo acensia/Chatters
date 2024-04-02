@@ -1,8 +1,8 @@
 import OpenAI from "openai";
 
-const callapi = async (textData, endpoint) => {
+const callapi = async (jsonData, endpoint) => {
   console.log("Start");
-  console.log(textData);
+  console.log(jsonData);
   try {
     const response = await fetch(
       "https://1db11e2a-c024-419f-929d-a7373757d8b1-00-3n8boxj5lw12n.spock.replit.dev" +
@@ -12,7 +12,7 @@ const callapi = async (textData, endpoint) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ text: textData }), // Convert the text data into JSON
+        body: JSON.stringify(jsonData), // Convert the text data into JSON
       }
     );
 
@@ -20,13 +20,14 @@ const callapi = async (textData, endpoint) => {
       throw new Error(`Error: ${response.statusText}`);
     }
 
-    const responseData = await response.text();
-    console.log("Success:", responseData);
+    const responseData = await response.json();
+
+    console.log("Success:"); //, responseData);
     return responseData;
   } catch (error) {
     console.error("Error:", error);
     alert("Failed to reach the server. Please try again later.");
-    return error;
+    throw new Error(error);
   }
 };
 

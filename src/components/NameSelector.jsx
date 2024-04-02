@@ -7,26 +7,21 @@ function MessageBox({ isVisible, onSubmit }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [validationMessage, setValidationMessage] = useState("");
 
-  // // Validate the input value before submitting
-  // const validateInput = async (value) => {
-  //   const checked = callapi(value, "/check").then((res) => {
-  //     console.log(`hi ${res}`);
-  //     result = res === "yes";
-  //   });
-  //   return result;
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    callapi(inputValue, "/check")
-      .then((res) => {
+    callapi({ text: inputValue }, "/check")
+      .then((respond) => {
+        var res = respond["checked"];
         if (res.includes("Error")) throw new Error(res);
         console.log(`Check Result : ${res}`);
         if (res !== "no") {
           setIsSubmitting(true); // Begin the fade-out effect
           res = res.replace(/[^a-zA-Z0-9]/g, "");
           console.log(res);
-          callapi(res, "/name");
+          callapi({ text: res }, "/name").then((red) => {
+            console.log("ID set is :" + red["session_id"]);
+            onSubmit(res, red["session_id"]);
+          });
           if (res !== inputValue) {
             setValidationMessage(`Correct name is ${res}`);
           } // Clear any previous validation messages
@@ -34,7 +29,6 @@ function MessageBox({ isVisible, onSubmit }) {
             setIsSubmitting(false);
             setValidationMessage(""); // Clear any previous validation messages
           }, 1000); // Reset state after animation
-          onSubmit(res);
         } else {
           setValidationMessage(`No \"${inputValue}\" in Harry Potter world`);
         }

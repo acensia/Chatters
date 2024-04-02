@@ -10,7 +10,7 @@ function App() {
 
   return (
     <>
-      <BouncingLayout func={handleProp} curr={start} />
+      <BouncingLayout />
     </>
   );
 }

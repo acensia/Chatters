@@ -5,12 +5,12 @@ import "./ChatBox.css"; // Make sure to create a corresponding CSS file
 import callapi from "./Callapi";
 import MessageBox from "./NameSelector";
 
-const ChatBox = ({ name }) => {
+const ChatBox = ({ name, id }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
 
   const containerRef = useRef(null);
-
+  console.log("Your current id is " + id);
   const addMessage = (text, role) => {
     const newMessage = {
       id: Date.now(),
@@ -53,8 +53,8 @@ const ChatBox = ({ name }) => {
     if (input.trim()) {
       addMessage(input, 1);
       setInput("");
-      callapi(input, "/polyjuice").then((text) => {
-        addMessage(text, 0);
+      callapi({ message: input, id: id }, "/polyjuice").then((json) => {
+        addMessage(json["message"], 0);
       });
     }
   };
@@ -71,7 +71,7 @@ const ChatBox = ({ name }) => {
           zIndex: 3,
         }}
       >
-        {name}
+        {name.split("&")[0]}
       </div>
       <div className="chat-box letters">
         <div className="chat-log" ref={containerRef}>
@@ -101,10 +101,11 @@ const ChatBox = ({ name }) => {
   );
 };
 
-const Chat = ({ curr, changeName }) => {
+const Chat = ({ curr, changeName, id }) => {
   if (!curr) return <></>;
   const [name, setName] = useState(curr);
   const [ask, setAsk] = useState(name === "Who else?");
+  const [id_, setID] = useState(id);
   const chatStyle = {
     position: "absolute",
     opacity: 0,
@@ -112,16 +113,19 @@ const Chat = ({ curr, changeName }) => {
     // color: curr ? "blue" : "",
     animationDelay: `2s`,
   };
-  const onInput = (text) => {
+  useEffect(() => {
+    if (curr !== "Who else?") setID(id);
+  });
+  const onInput = (text, ids) => {
     setName(text);
     setAsk(text === "Who else?");
-    changeName(text);
+    setID(ids);
   };
   return (
     <>
       {!ask ? (
         <div style={chatStyle}>
-          <ChatBox name={name} />
+          <ChatBox name={name} id={id_} />
         </div>
       ) : (
         <></>
