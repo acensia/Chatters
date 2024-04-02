@@ -114,7 +114,7 @@ const Chat = ({ curr, changeName, id }) => {
     animationDelay: `2s`,
   };
   useEffect(() => {
-    setID(id);
+    if (curr !== "Who else?") setID(id);
   });
   const onInput = (text, ids) => {
     setName(text);
