@@ -24,3 +24,8 @@ Basic idea is from [Polyjuice - discord bot](https://github.com/acensia/Polyjuic
 
 - 2024.03.31
   Scrolling added as a message attached
+
+- 2024.04.02
+  Add session management for the server, to enable multiple communications for each client.
+  Change data type from text to json, to add one more information:session_id.
+  Modify data flow to let last circle (name selector) also able to get session_id.
