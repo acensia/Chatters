@@ -11,12 +11,12 @@ function MessageBox({ isVisible, onSubmit }) {
     e.preventDefault();
     callapi({ text: inputValue }, "/check")
       .then((respond) => {
-        var res = respond["checked"];
+        const res = respond["checked"];
         if (res.includes("Error")) throw new Error(res);
         console.log(`Check Result : ${res}`);
         if (res !== "no") {
           setIsSubmitting(true); // Begin the fade-out effect
-          res = res.replace(/[^a-zA-Z0-9]/g, "");
+          const cleared = res.replace(/[^a-zA-Z0-9]/g, "");
           console.log(res);
           callapi({ text: res }, "/name").then((red) => {
             console.log("ID set is :" + red["session_id"]);
