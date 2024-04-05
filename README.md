@@ -29,3 +29,6 @@ Basic idea is from [Polyjuice - discord bot](https://github.com/acensia/Polyjuic
   Add session management for the server, to enable multiple communications for each client.
   Change data type from text to json, to add one more information:session_id.
   Modify data flow to let last circle (name selector) also able to get session_id.
+
+- 2024.04.05
+  Fix instructions(prompt) to some error cases : "Lupin" -> ~~Arsene Lupin~~ / Remus Lupin
