@@ -38,17 +38,41 @@ def name(text):
 
 
 def check(text):
-  inst = "User will tell you a name. If any character with that name exists in Harry Potter, repeat the name. \
-    If not the same, but the similar name exists in Harry Potter, tell \"only\" the right \"full\" name of it. \
-    If any character with the name doesn't exist, only say No."
+  # msg = f"Does {name} or similar name exist in Harry Potter? Only answer in yes or no"
+  inst = "User will tell you some names. If any character with each name exists in Harry Potter, repeat the name. \
+  If not the same, but the similar name exists in Harry Potter, tell the right name of it. \
+  If any character with the name doesn't exist, say No."
 
-  rendered = [{
+  fewshots = [{
       "role": "system",
       "content": inst
   }, {
       "role": "user",
-      "content": text
+      "content": "Lupin"
+  }, {
+      "role": "assistant",
+      "content": "Remus Lupin"
+  }, {
+      "role": "user",
+      "content": "Tony Stark"
+  }, {
+      "role": "assistant",
+      "content": "No"
+  }, {
+      "role": "user",
+      "content": "Nevil"
+  }, {
+      "role": "assistant",
+      "content": "Neville Longbottom"
+  }, {
+      "role": "user",
+      "content": "umbridge"
+  }, {
+      "role": "assistant",
+      "content": "Dolores Umbridge"
   }]
+
+  rendered = fewshots + [{"role": "user", "content": text}]
   res = client.chat.completions.create(
       model=MODEL,
       messages=rendered,
