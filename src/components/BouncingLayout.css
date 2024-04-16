@@ -79,7 +79,7 @@
     transform: translateY(0%);
   }
   100% {
-    transform: translateY(-300%);
+    transform: translateY(-240%);
   }
 }
 

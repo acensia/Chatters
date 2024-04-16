@@ -27,3 +27,4 @@ _trashcan/
 .firebase/
 # back/
 back/gptMod.py
+_captures/
