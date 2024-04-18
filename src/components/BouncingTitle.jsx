@@ -48,7 +48,7 @@ const BouncingLayout = React.memo(() => {
   const [clicked, setClicked] = useState(false);
   const [id, setId] = useState(false);
 
-  const handleClicked = useCallback(
+  const handleClicked = // useCallback(
     (clickedone) => {
       // setClicked(true);
       console.log(clickedone);
@@ -68,9 +68,10 @@ const BouncingLayout = React.memo(() => {
       }
 
       return clicked;
-    },
-    [clicked]
-  );
+    };
+  //   ,
+  //   [clicked]
+  // );
 
   // useEffect(() => {
   //   if (name) {
