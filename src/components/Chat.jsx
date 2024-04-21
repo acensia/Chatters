@@ -101,7 +101,7 @@ const ChatBox = ({ name, id }) => {
   );
 };
 
-const Chat = ({ curr, changeName, id }) => {
+const Chat = ({ curr, id }) => {
   if (!curr) return <></>;
   const [name, setName] = useState(curr);
   const [ask, setAsk] = useState(name === "Who else?");

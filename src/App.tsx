@@ -1,5 +1,5 @@
 import { useState } from "react";
-import BouncingLayout from "./components/BouncingTitle";
+import BouncingLayout from "./components/Layout";
 
 function App() {
   return (

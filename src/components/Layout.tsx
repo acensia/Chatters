@@ -10,36 +10,40 @@ import Circle from "./Circle";
 import Chat from "./Chat";
 import callapi from "./Callapi";
 
-const Title = ({ current }) => {
+const Title = (props: { current: string }) => {
   const titleStyle = {
-    animation: current
+    animation: props.current
       ? "fade 0.5s forwards"
       : "pop 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards",
     textAlign: "center",
     marginBottom: "10vh",
     fontFamily: '"Tangerine", cursive',
     fontSize: "10vw",
-    animationDelay: current ? "0s" : "0.1s",
+    animationDelay: props.current ? "0s" : "0.1s",
   };
   return <h1 style={titleStyle}>Polyjuice</h1>;
 };
 
-const Asker = ({ clicked, handleClicked, id }) => {
+const Asker = (props: {
+  clicked: string;
+  handleClicked: Function;
+  id: string;
+}) => {
   // const [realName, setReal] = useState(clicked);
   // const onName = (text) => {
   //   setReal(text);
   // };
-  console.log("Asker's name is " + clicked);
+  console.log("Asker's name is " + props.clicked);
   return (
     <>
       <Circle
         img={wand}
         name="Who else?"
         delay="1.6s"
-        current={clicked}
-        onClick={handleClicked}
+        current={props.clicked}
+        onClick={props.handleClicked}
       />
-      <Chat curr={clicked} /*changeName={onName}*/ id={id} />
+      <Chat curr={props.clicked} id={props.id} />
     </>
   );
 };
