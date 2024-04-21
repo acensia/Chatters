@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import "./BouncingLayout.css"; // Ensure the CSS file is correctly linked
 import style from "styled-components";
 
-const Circleimg = ({ img, name }) => {
+const Circleimg = ({ profile_img, name }) => {
   // const [isHovered, setHovered] = useState(false);
   // const [currName, setName] = useState(name);
 
   const Styled = style.div`
       position:relative;
       transition: transform 0.4s ease;
-      background-image: url(${img});
+      background-image: url(${profile_img});
       width: 100%;
       height: 100%;
       border-radius: 50%;
@@ -56,7 +56,7 @@ const Circleimg = ({ img, name }) => {
   );
 };
 
-const Circle = React.memo(({ img, name, delay, current, onClick }) => {
+const Circle = React.memo(({ profile_img, name, delay, current, onClick }) => {
   const last = name === "Who else?";
   const moveType = () => {
     switch (name) {
@@ -100,7 +100,7 @@ const Circle = React.memo(({ img, name, delay, current, onClick }) => {
         if (!current) onClick(name);
       }}
     >
-      <Circleimg img={img} name={name} />
+      <Circleimg profile_img={profile_img} name={name} />
     </Circlepop>
   );
 });
