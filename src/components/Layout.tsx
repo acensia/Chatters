@@ -5,13 +5,12 @@ import harry from "../assets/HarryPotter.jpg";
 import hermione from "../assets/HermioneGranger.jpg";
 import ron from "../assets/RonWeasley.jpg";
 import wand from "../assets/qwand.jpg";
-import style from "styled-components";
 import Circle from "./Circle";
 import Chat from "./Chat";
 import callapi from "./Callapi";
 
-const Title = (props: { current: string }) => {
-  const titleStyle = {
+const Title = (props: { current: boolean | string }) => {
+  const titleStyle: React.CSSProperties = {
     animation: props.current
       ? "fade 0.5s forwards"
       : "pop 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards",
@@ -25,9 +24,9 @@ const Title = (props: { current: string }) => {
 };
 
 const Asker = (props: {
-  clicked: string;
+  clicked: boolean | string;
   handleClicked: Function;
-  id: string;
+  id: boolean | string;
 }) => {
   // const [realName, setReal] = useState(clicked);
   // const onName = (text) => {
@@ -37,7 +36,7 @@ const Asker = (props: {
   return (
     <>
       <Circle
-        img={wand}
+        profile_img={wand}
         name="Who else?"
         delay="1.6s"
         current={props.clicked}
@@ -88,21 +87,21 @@ const BouncingLayout = React.memo(() => {
       <Title current={clicked} />
       <div className={`circles`} hidden={clicked}>
         <Circle
-          img={harry}
+          profile_img={harry}
           name="Harry Potter"
           delay="1.0s"
           current={clicked}
           onClick={handleClicked}
         />
         <Circle
-          img={hermione}
+          profile_img={hermione}
           name="Hermione Granger"
           delay="1.2s"
           current={clicked}
           onClick={handleClicked}
         />
         <Circle
-          img={ron}
+          profile_img={ron}
           name="Ron Weasley"
           delay="1.4s"
           current={clicked}
