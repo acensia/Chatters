@@ -28,4 +28,4 @@ Basic idea is from [Polyjuice - discord bot](https://github.com/acensia/Polyjuic
 - 2024.04.05
   Fix instructions(prompt) to some error cases : "Lupin" -> ~~Arsene Lupin~~ / Remus Lupin
 - 2024.04.19
-  Start to change JS into
+  Start to change JS into TS
