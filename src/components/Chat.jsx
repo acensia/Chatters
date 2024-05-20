@@ -3,7 +3,7 @@ import "./anime.css";
 import React, { useEffect, useState, useRef } from "react";
 import "./ChatBox.css"; // Make sure to create a corresponding CSS file
 import callapi from "./Callapi";
-import MessageBox from "./NameSelector";
+import NameSelector from "./NameSelector";
 
 const ChatBox = ({ name, id }) => {
   const [messages, setMessages] = useState([]);
@@ -101,11 +101,26 @@ const ChatBox = ({ name, id }) => {
   );
 };
 
-const Chat = ({ curr, id }) => {
+const Chat = React.memo(({ curr }) => {
   if (!curr) return <></>;
+  console.log(`Chat status : ${curr}`);
+  const [id_, setID] = useState(false);
+  const initChat = () => {
+    if (curr !== "Who else?") {
+      callapi({ text: curr }, "/name")
+        .then((res) => {
+          setID(res["session_id"]);
+        })
+        .catch((error) => {
+          console.error("Fetch error: ", error.message);
+          // alert("Failed to reach the server. Please try again later.");
+          setClicked(false);
+        });
+    }
+  };
+  if (!id_) initChat();
   const [name, setName] = useState(curr);
   const [ask, setAsk] = useState(name === "Who else?");
-  const [id_, setID] = useState(id);
   const chatStyle = {
     position: "absolute",
     opacity: 0,
@@ -113,9 +128,9 @@ const Chat = ({ curr, id }) => {
     // color: curr ? "blue" : "",
     animationDelay: `2s`,
   };
-  useEffect(() => {
-    if (curr !== "Who else?") setID(id);
-  });
+  // useEffect(() => {
+  //   if (curr !== "Who else?") setID(id);
+  // });
   const onInput = (text, ids) => {
     setName(text);
     setAsk(text === "Who else?");
@@ -131,10 +146,10 @@ const Chat = ({ curr, id }) => {
         <></>
       )}
       <div style={chatStyle}>
-        <MessageBox isVisible={ask} onSubmit={onInput} />
+        <NameSelector isVisible={ask} onSubmit={onInput} />
       </div>
     </>
   );
-};
+});
 
 export default Chat;
