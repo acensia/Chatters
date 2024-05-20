@@ -31,3 +31,4 @@ Basic idea is from [Polyjuice - discord bot](https://github.com/acensia/Polyjuic
   Start to change JS into TS
 - 2024.05.15
   Add prompt defense
+  Figuring out why memo doesn't work.
