@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import "./anime.css"; // Adjust the path based on your file structure
 import callapi from "./Callapi";
 
-function MessageBox({ isVisible, onSubmit }) {
+function NameSelector({ isVisible, onSubmit }) {
   const [inputValue, setInputValue] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [validationMessage, setValidationMessage] = useState("");
+  // console.log(`Visible status is ${isVisible}`);
+  // console.log(`Submitting status is ${isSubmitting}`);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -67,4 +69,4 @@ function MessageBox({ isVisible, onSubmit }) {
   );
 }
 
-export default MessageBox;
+export default NameSelector;

@@ -5,7 +5,7 @@ import harry from "../assets/HarryPotter.jpg";
 import hermione from "../assets/HermioneGranger.jpg";
 import ron from "../assets/RonWeasley.jpg";
 import wand from "../assets/qwand.jpg";
-import Circle from "./Circle";
+import Circle, { Circle_input } from "./Circle";
 import Chat from "./Chat";
 import callapi from "./Callapi";
 
@@ -26,7 +26,6 @@ const Title = (props: { current: boolean | string }) => {
 const Asker = (props: {
   clicked: boolean | string;
   handleClicked: Function;
-  id: boolean | string;
 }) => {
   // const [realName, setReal] = useState(clicked);
   // const onName = (text) => {
@@ -35,53 +34,27 @@ const Asker = (props: {
   console.log("Asker's name is " + props.clicked);
   return (
     <>
-      <Circle
+      <Circle_input
         profile_img={wand}
         name="Who else?"
         delay="1.6s"
         current={props.clicked}
         onClick={props.handleClicked}
       />
-      <Chat curr={props.clicked} id={props.id} />
     </>
   );
 };
 
 const BouncingLayout = React.memo(() => {
   const [clicked, setClicked] = useState(false);
-  const [id, setId] = useState(false);
-
   const handleClicked = // useCallback(
-    (clickedone) => {
+    (clickedone: any) => {
       // setClicked(true);
       console.log(clickedone);
-      if (clickedone !== "Who else?") {
-        setClicked(clickedone);
-        callapi({ text: clickedone }, "/name")
-          .then((res) => {
-            setId(res["session_id"]);
-          })
-          .catch((error) => {
-            console.error("Fetch error: ", error.message);
-            // alert("Failed to reach the server. Please try again later.");
-            setClicked(false);
-          });
-      } else {
-        setClicked(clickedone);
-      }
+      setClicked(clickedone);
 
-      return clicked;
+      // return clicked;
     };
-  //   ,
-  //   [clicked]
-  // );
-
-  // useEffect(() => {
-  //   if (name) {
-  //     console.log("hhere??");
-  //     setName(false);
-  //   }
-  // }, [name]);
   return (
     <div className="container">
       <Title current={clicked} />
@@ -108,9 +81,10 @@ const BouncingLayout = React.memo(() => {
           onClick={handleClicked}
         />
       </div>
-      <Asker clicked={clicked} handleClicked={handleClicked} id={id} />
+      <Asker clicked={clicked} handleClicked={handleClicked} />
+      <Chat curr={clicked} />
     </div>
   );
-}, []);
+});
 
 export default BouncingLayout;

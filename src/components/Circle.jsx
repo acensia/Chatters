@@ -105,4 +105,43 @@ const Circle = React.memo(({ profile_img, name, delay, current, onClick }) => {
   );
 });
 
+export const Circle_input = React.memo(
+  ({ profile_img, name, delay, current, onClick }) => {
+    const last = name === "Who else?";
+    console.log("Clicked one is " + current);
+    const Circlepop = style.div`
+    ${current ? "transform:scale(1);" : "transform:scale(0);"}
+    width: ${last ? "16vw" : "22vw"};
+    height: ${last ? "16vw" : "22vw"};
+    border-radius: 50%;
+    background-color: #cccccc; /* Example color */
+    margin-left: 2vw;
+    margin-right: 2vw;
+    margin-bottom: 2vw;
+    background-size: cover; /* Ensures the image covers the entire circle */
+    background-position: center 10%; /* Centers the image within the circle */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    animation: ${
+      current
+        ? current === name // changed
+          ? `moveUpMore 2s ease forwards`
+          : "fade 0.5s forwards"
+        : "pop 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards"
+    };
+    animation-delay:${current ? "0s" : delay};
+  `;
+
+    return (
+      <Circlepop
+        className={name === "Who else?" ? "last" : ""}
+        onClick={() => {
+          if (!current) onClick(name);
+        }}
+      >
+        <Circleimg profile_img={profile_img} name={name} />
+      </Circlepop>
+    );
+  }
+);
+
 export default Circle;
